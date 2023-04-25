@@ -1,0 +1,20 @@
+.leftCard {
+    /* background: rgb(30, 102, 15);
+    background: linear-gradient(135deg, rgba(30, 102, 15, 1) 0%, rgba(20, 135, 6, 1) 41%, rgba(0, 255, 115, 1) 79%); */
+    border-right: 1px solid rgb(158, 155, 155);
+    padding: 10px;
+}
+.avatar{
+    border-radius: 50%
+}
+.marLft{
+    margin-left: 4rem;
+}
+
+.marLft10{
+    margin-left: 10rem;
+}
+
+.marLft8{
+    margin-left: 8rem;
+}
