@@ -22,6 +22,8 @@ const signup = async (req, res) => {
         if (userr) {
             const token = generateJwtToken(userr._id, userr.email)
             const { _id, fullName, email } = userr;
+            // Can utilize on client side when use client on https
+            res.cookie("token", token, { expiresIn: "1d" });
             return res.status(201).json({
                 error: false,
                 data: {
@@ -43,7 +45,6 @@ const signup = async (req, res) => {
 const signin = async (req, res) => {
     try {
         const user = await User.findOne({ email: req.body.email }).exec();
-        console.log("Sudeep", user);
         if (user == null) return res.status(400).json({ error: true, message: "User not found!" })
         else {
             const isPassword = await user.authenticate(req.body.password);
@@ -51,6 +52,8 @@ const signin = async (req, res) => {
             if (isPassword) {
                 const token = generateJwtToken(user._id, user.email);
                 const { _id, fullName, email } = user;
+                // Can utilize on client side when use client on https
+                res.cookie("token", token, { expiresIn: "1d" });
                 return res.status(201).json({
                     error: false,
                     data: {
@@ -99,4 +102,12 @@ const getUser = async (req, res) => {
     }
 }
 
-module.exports = { signup, signin, getUser }
+const signout = async(req, res) => {
+    res.clearCookie("token");
+    res.status(200).json({
+      message: "Signout successfully...!",
+      error: false
+    });
+  };
+
+module.exports = { signup, signin, getUser, signout }
